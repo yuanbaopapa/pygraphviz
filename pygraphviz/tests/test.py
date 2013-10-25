@@ -18,7 +18,7 @@ def test_suite():
 
     suite = unittest.TestSuite()
     for t in tests:
-        s = doctest.DocFileSuite(t,module_relative=False)
+        s = doctest.DocFileSuite(t,module_relative=False,optionflags=(doctest.NORMALIZE_WHITESPACE | doctest.REPORT_NDIFF))
         suite.addTest(s)
     return suite
 

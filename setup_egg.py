@@ -27,8 +27,10 @@ extension = [Extension("pygraphviz._graphviz",
                       ["pygraphviz/graphviz_wrap.c"],
                       include_dirs=include_dirs,
                       library_dirs=library_dirs,
-                      runtime_library_dirs=library_dirs,
-                      libraries=["cgraph","cdt"])]
+                      #runtime_library_dirs=library_dirs,
+                      libraries=["cgraph","cdt"],
+                      define_macros=[('GVDLL',None)],
+                      )]
 
 if __name__ == "__main__":
 

@@ -15,7 +15,7 @@ strict graph unicode {
 >>> n.name==hello
 True
 >>> unicode(A)
-u'strict graph {\n\tgraph [encoding="UTF-8"];\n\t"\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435!";\n}\n'
+u'strict graph {\r\n\tgraph [encoding="UTF-8"];\r\n\t"\u0417\u0434\u0440\u0430\u0432\u0441\u0442\u0432\u0443\u0439\u0442\u0435!";\r\n}\r\n'
 
 # set node attribute
 >>> n.attr['goodbye']="До свидания".decode('UTF-8')
@@ -34,7 +34,7 @@ u'1'
 >>> e==(hello,hello)
 True
 >>> unicode(A)
-u'strict graph {\n\tgraph [encoding="UTF-8"];\n\t\u05e9\u05dc\u05d5\u05dd -- \u05e9\u05dc\u05d5\u05dd [key=1];\n}\n'
+u'strict graph {\r\n\tgraph [encoding="UTF-8"];\r\n\t\u05e9\u05dc\u05d5\u05dd -- \u05e9\u05dc\u05d5\u05dd [key=1];\r\n}\r\n'
 
 # set edge attribute
 >>> e.attr['hello']=hello
@@ -53,7 +53,7 @@ True
 >>> G1 = AGraph(ug)
 >>> G2 = AGraph(sg)
 >>> unicode(G1)
-u'strict graph {\n\t\xe6\xb5\x8b\xe8\xaf\x95;\n}\n'
+u'strict graph {\r\n\t\xe6\xb5\x8b\xe8\xaf\x95;\r\n}\r\n'
 >>> unicode(G2)
-u'strict graph {\n\t\xe6\xb5\x8b\xe8\xaf\x95;\n}\n'
+u'strict graph {\r\n\t\xe6\xb5\x8b\xe8\xaf\x95;\r\n}\r\n'
 

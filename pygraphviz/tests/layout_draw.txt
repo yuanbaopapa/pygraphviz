@@ -55,7 +55,6 @@ Read/Write
 >>> A=AGraph(name='test graph')
 >>> A.add_path([1,2,3,4,5,6,7,8,9,10])
 
->>> import os,tempfile
 >>> (fd,fname)=tempfile.mkstemp()
 >>> A.write(fname)
 >>> A.read(fname)
@@ -65,6 +64,8 @@ True
 >>> B is A
 False
 >>> os.close(fd)
+>>> del A
+>>> del B
 >>> os.unlink(fname)
 
 
@@ -92,14 +93,15 @@ AttributeError: Graph has no layout information, see layout()
 
 >>> d=A.draw(prog='neato')
 >>> len(d.splitlines())
-11
+19
 >>> (fd,fname)=tempfile.mkstemp()
 >>> A.draw(fname,format='ps',prog='neato')
 >>> A.draw(fname,prog='neato')
 >>> A.draw(fname,prog='foo')
 Traceback (most recent call last):
 ...
-ValueError: Program foo is not one of: twopi, gvcolor, wc, ccomps, tred, sccmap, fdp, circo, neato, acyclic, nop, gvpr, dot, sfdp.
+ValueError: Program foo is not one of: neato, dot, twopi, circo, fdp, nop, wc, acyclic, gvpr, gvcolor, ccomps, sccmap, tred, sfdp.
 
 >>> os.close(fd)
+>>> del A
 >>> os.unlink(fname)
