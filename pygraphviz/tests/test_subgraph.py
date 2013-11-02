@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from nose.tools import *
 import pygraphviz as pgv
+from os import linesep
 
 def test_subgraph_cluster():
     G = pgv.AGraph(label='foo')
@@ -16,7 +17,7 @@ def test_subgraph_cluster():
   }
   a;
 }
-""")
+""".replace('\n', linesep))
 
 def test_subgraph_cluster_attribute():
     G = pgv.AGraph()
@@ -32,4 +33,4 @@ def test_subgraph_cluster_attribute():
   }
   a;
 }
-""")
+""".replace('\n', linesep))

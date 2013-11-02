@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from nose.tools import *
 import pygraphviz as pgv
+from os import linesep
 
 def test_html():
     G = pgv.AGraph(label='<Hello<BR/>Graph>')
@@ -19,4 +20,4 @@ def test_html():
   a  [label=<Hello<BR/>Node>];
   a -- b   [label=<Hello<BR/>Edge>];
 }
-""")
+""".replace('\n', linesep))

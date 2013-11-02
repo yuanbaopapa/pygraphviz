@@ -1,5 +1,6 @@
 from nose.tools import *
 import pygraphviz as pgv
+from os import linesep
 
 class TestGraph:
     def setUp(self):
@@ -33,13 +34,13 @@ class TestGraph:
         assert_equal(A.string(),
 """strict graph test {
 }
-"""
+""".replace('\n', linesep)
 )
         A = pgv.AGraph()
         assert_equal(A.string(),
 """strict graph {
 }
-"""
+""".replace('\n', linesep)
 )
 
     def test_repr(self):
@@ -325,7 +326,7 @@ u"""strict digraph {
 1 -> 2;
 2 -> 3;
 }
-"""
+""".replace('\n', linesep)
 )
 
         assert_equal(A.reverse().string().expandtabs(0),
@@ -333,7 +334,7 @@ u"""strict digraph {
 2 -> 1;
 3 -> 2;
 }
-"""
+""".replace('\n', linesep)
 )
 
     def test_name(self):

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from nose.tools import *
 import pygraphviz as pgv
+from os import linesep
+from unittest import skip
 
 def test_edge_attributes():
     A = pgv.AGraph()
@@ -10,7 +12,7 @@ def test_edge_attributes():
   1 -- 2   [label=test,
     spam=eggs];
 }
-"""
+""".replace('\n', linesep)
 )
 
 def test_edge_attributes2():
@@ -27,7 +29,7 @@ def test_edge_attributes2():
   1 -- 2   [label=test,
     spam=eggs];
 }
-"""
+""".replace('\n', linesep)
 )
     one.attr['label'] = ''
     one.attr['spam'] = ''
@@ -35,7 +37,7 @@ def test_edge_attributes2():
 """strict graph {
   1 -- 2;
 }
-"""
+""".replace('\n', linesep)
 )
     one.attr['label'] = 'test'
     del one.attr['label']
@@ -43,23 +45,23 @@ def test_edge_attributes2():
 """strict graph {
   1 -- 2;
 }
-"""
+""".replace('\n', linesep)
 )
 
+@skip("unfinished")
 def test_anonymous_edges():
     """graph test {\n a -- b [label="edge1"];\n a -- b [label="edge2"];\n }"""
-    pass
-    #FIXME
-# >>> import os,tempfile
-# >>> (fd,fname)=tempfile.mkstemp()
-# >>> fh=open(fname,'w')
-# >>> fh.write(d)
-# >>> fh.close()
-    # A = AGraph(fname)
 
-#    assert_equal(print A.string().expandtabs(2),
-# """graph test {
-#   a -- b   [label=edge1];
-#   a -- b   [label=edge2];
-# }
-#""")
+    import os,tempfile
+    fd, fname = tempfile.mkstemp()
+    #os.write(d)
+    #os.close(fd)
+    #A = AGraph(fname)
+
+    assert_equal(A.string().expandtabs(2),
+"""graph test {
+   a -- b   [label=edge1];
+   a -- b   [label=edge2];
+}
+""".replace('\n', linesep))
+    os.unlink(fname)

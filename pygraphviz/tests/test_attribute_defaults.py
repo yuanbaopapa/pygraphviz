@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from nose.tools import *
 import pygraphviz as pgv
+from os import linesep
 
 def test_default_attributes():
     A = pgv.AGraph()
@@ -17,7 +18,7 @@ def test_default_attributes():
     spam=eggs
   ];
 }
-""")
+""".replace('\n', linesep))
 
     A.graph_attr['label'] = ''
     A.graph_attr['spam'] = ''
@@ -25,14 +26,14 @@ def test_default_attributes():
     assert_equal(A.string().expandtabs(2),
 """strict graph {
 }
-""")
+""".replace('\n', linesep))
 
     A.graph_attr['label'] = 'test'
     del A.graph_attr['label']
     assert_equal(A.string().expandtabs(2),
 """strict graph {
 }
-"""
+""".replace('\n', linesep)
 )
 def test_graph_defaults():
     A = pgv. AGraph(rankdir='LR',pack='true')
@@ -42,7 +43,7 @@ def test_graph_defaults():
     rankdir=LR
   ];
 }
-""")
+""".replace('\n', linesep))
 
 
 def test_node_defaults():
@@ -57,13 +58,13 @@ def test_node_defaults():
 """strict graph {
   node [label=test];
 }
-"""
+""".replace('\n', linesep)
 )
     A.node_attr['label'] = ''
     assert_true(A.string().expandtabs(2),
 """strict graph {
 }
-"""
+""".replace('\n', linesep)
 )
 
     A.node_attr['label'] = 'test'
@@ -71,7 +72,7 @@ def test_node_defaults():
     assert_true(A.string().expandtabs(2),
 """strict graph {
 }
-"""
+""".replace('\n', linesep)
 )
     A.graph_attr['fontname'] = 'graph font'
     A.node_attr['fontname'] = 'node font'
@@ -82,7 +83,7 @@ def test_node_defaults():
   node [fontname="node font"];
   edge [fontname="edge font"];
 }
-"""
+""".replace('\n', linesep)
 )
 
 def test_edge_defaults():
@@ -97,17 +98,18 @@ def test_edge_defaults():
 """strict graph {
   edge [label=test];
 }
-"""
+""".replace('\n', linesep)
 )
     A.edge_attr['label'] = ''
     assert_equal(A.string().expandtabs(2),
 """strict graph {
 }
-"""
+""".replace('\n', linesep)
 )
     A.edge_attr['label'] = 'test'
     del A.edge_attr['label']
     assert_true(A.string().expandtabs(2),
 """strict graph {
 }
-""")
+""".replace('\n', linesep)
+)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from nose.tools import *
 import pygraphviz as pgv
+from os import linesep
 
 def test_node_attribute():
     A = pgv.AGraph()
@@ -11,7 +12,7 @@ def test_node_attribute():
   1  [label=test,
     spam=eggs];
 }
-""")
+""".replace('\n', linesep))
 
 def test_node_attributes2():
     A = pgv.AGraph()
@@ -28,7 +29,7 @@ def test_node_attributes2():
   1  [label=test,
     spam=eggs];
 }
-"""
+""".replace('\n', linesep)
 )
     one.attr['label'] = ''
     one.attr['spam'] = ''
@@ -37,7 +38,7 @@ def test_node_attributes2():
   node [label="\N"];
   1  [label=""];
 }
-""")
+""".replace('\n', linesep))
     one.attr['label'] = 'test'
     del one.attr['label']
     assert_equal(A.string().expandtabs(2),
@@ -45,4 +46,4 @@ def test_node_attributes2():
   node [label="\N"];
   1  [label=""];
 }
-""")
+""".replace('\n', linesep))

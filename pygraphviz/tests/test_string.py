@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 from nose.tools import *
 import pygraphviz as pgv
+from os import linesep
 
 def test_name():
     A = pgv.AGraph(name='')
     assert_equal(A.string(),
 """strict graph {
 }
-""")
+""".replace('\n', linesep))
 
 
     assert_equal(A.string().expandtabs(),
 """strict graph {
 }
-""")
+""".replace('\n', linesep))
 
     assert_equal( A.__repr__()[0:7],'<AGraph')
 
@@ -25,7 +26,7 @@ def test_string_representation_small():
 """strict graph test {
         1 -- 2;
 }
-"""
+""".replace('\n', linesep)
 )
 
 def test_string_representation_large():
@@ -45,4 +46,4 @@ def test_string_representation_large():
         9 -- 10;
         11;
 }
-""")
+""".replace('\n', linesep))
