@@ -2955,7 +2955,18 @@ static swig_module_info swig_module = {swig_types, 8, 0, 0, 0, 0};
 
 
 #if PY_VERSION_HEX >= 0x03000000
-extern PyTypeObject PyIOBase_Type;
+static PyObject *PyIOBase_TypeObj;
+
+static int init_file_emulator(void)
+{
+    PyObject *io = PyImport_ImportModule("_io");
+    if (io == NULL)
+        return -1;
+    PyIOBase_TypeObj = PyObject_GetAttrString(io, "_IOBase");
+    if (PyIOBase_TypeObj == NULL)
+        return -1;
+    return 0;
+}
 #endif
 
 
@@ -3415,7 +3426,7 @@ SWIGINTERN PyObject *_wrap_agread(PyObject *SWIGUNUSEDPARM(self), PyObject *args
   if (!PyArg_ParseTuple(args,(char *)"OO:agread",&obj0,&obj1)) SWIG_fail;
   {
 #if PY_VERSION_HEX >= 0x03000000
-    if (!PyObject_IsInstance(obj0, (PyObject *)&PyIOBase_Type)) {
+    if (!PyObject_IsInstance(obj0, PyIOBase_TypeObj)) {
       PyErr_SetString(PyExc_TypeError, "not a file handle");
       return NULL;
     }
@@ -3476,7 +3487,7 @@ SWIGINTERN PyObject *_wrap_agwrite(PyObject *SWIGUNUSEDPARM(self), PyObject *arg
   arg1 = (Agraph_t *)(argp1);
   {
 #if PY_VERSION_HEX >= 0x03000000
-    if (!PyObject_IsInstance(obj1, (PyObject *)&PyIOBase_Type)) {
+    if (!PyObject_IsInstance(obj1, PyIOBase_TypeObj)) {
       PyErr_SetString(PyExc_TypeError, "not a file handle");
       return NULL;
     }
@@ -5930,7 +5941,13 @@ SWIG_init(void) {
 #endif
   
   SWIG_InstallConstants(d,swig_const_table);
-  
+   
+#if PY_VERSION_HEX >= 0x03000000
+  if (init_file_emulator() < 0) {
+    return NULL;
+  }
+#endif
+ 
   PyDict_SetItemString(md,(char*)"cvar", SWIG_globals());
   SWIG_addvarlink(SWIG_globals(),(char*)"Agdirected",Swig_var_Agdirected_get, Swig_var_Agdirected_set);
   SWIG_addvarlink(SWIG_globals(),(char*)"Agstrictdirected",Swig_var_Agstrictdirected_get, Swig_var_Agstrictdirected_set);

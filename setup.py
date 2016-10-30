@@ -16,7 +16,6 @@ import sys
 from setup_commands import AddExtensionDevelopCommand, AddExtensionInstallCommand
 from setup_extra import get_graphviz_dirs
 
-
 if os.path.exists('MANIFEST'): os.remove('MANIFEST')
 
 if sys.argv[-1] == 'setup.py':
@@ -29,9 +28,10 @@ if sys.version_info[:2] < (2, 6):
     sys.exit(-1)
 
 # Write the version information.
-#TODO rework this import hack with import graphviz.release or import graphviz.version ( doesn't work now because of code in the __init__)
+# TODO rework this import hack with import graphviz.release or import graphviz.version ( doesn't work now because of code in the __init__)
 sys.path.insert(0, 'pygraphviz')
 import release
+
 release.write_versionfile()
 sys.path.pop(0)
 
@@ -43,7 +43,9 @@ data = [
     (os.path.join(docdirbase, 'examples'), glob("examples/*.dat")),
     (os.path.join(docdirbase, 'examples'), glob("examples/*.dat.gz")),
 ]
-package_data = {'': ['*.txt'], }
+package_data = {'': ['*.txt'],}
+
+current_dir = os.path.dirname(os.path.realpath(__file__))
 
 if __name__ == "__main__":
     define_macros = []
@@ -54,8 +56,8 @@ if __name__ == "__main__":
         Extension(
             "pygraphviz._graphviz",
             ["pygraphviz/graphviz_wrap.c"],
-            include_dirs=[],
-            library_dirs=[],
+            include_dirs=[os.path.abspath(os.path.join(current_dir, r'..\..\graphviz\include'))],
+            library_dirs=[os.path.abspath(os.path.join(current_dir, r'..\..\..\..\lib\vc140\x64\release'))],
             libraries=["cgraph", "cdt"],
             define_macros=define_macros
         )
@@ -80,9 +82,9 @@ if __name__ == "__main__":
         cmdclass={
             'install': AddExtensionInstallCommand,
             'develop': AddExtensionDevelopCommand,
-            },
+        },
         package_data=package_data,
-        include_package_data = True,
+        include_package_data=True,
         test_suite='nose.collector',
-        tests_require=['nose>=0.10.1', 'doctest-ignore-unicode>=0.1.0',],
+        tests_require=['nose>=0.10.1', 'doctest-ignore-unicode>=0.1.0', ],
     )
