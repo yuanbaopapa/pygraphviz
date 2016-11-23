@@ -57,7 +57,7 @@ if __name__ == "__main__":
             "pygraphviz._graphviz",
             ["pygraphviz/graphviz_wrap.c"],
             include_dirs=[os.path.abspath(os.path.join(current_dir, r'..\..\graphviz\include'))],
-            library_dirs=[os.path.abspath(os.path.join(current_dir, r'..\..\..\..\lib\vc140\x64\release'))],
+            library_dirs=[os.path.abspath(os.path.join(current_dir, r'..\..\..\..\lib\vc140\x86\release'))],
             libraries=["cgraph", "cdt"],
             define_macros=define_macros
         )
